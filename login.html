@@ -3,23 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>login</title>
 </head>
 <body>
     <form>
-        <h1>회원가입</h1>
-        <div> email : <input type="email" id="signUpEmail"/></div>
-        <div> password : <input type="password" id="signUpPassword"/></div>
-        <button type="submit" id="signUpButton">회원가입 하기</button>
-        <button>로그인 하러 가기</button>
-    </form>
-
-    <form>
-        <h1>로그인</h1>
-        <div> email : <input type="email" id="signInEmail"/></div>
-        <div> password : <input type="password" id="signInPassword"/></div>
-        <button type="submit" id="signInButton">로그인 하기</button>
-        <button>회원가입 하러 가기</button>
+        <ul>
+            <h1>로그인</h1>
+            <div id="id"> email : <br><input type="email" id="signInEmail"/></div>
+            <div id="pw"> password : <br><input type="password" id="signInPassword"/></div>
+            <button type="submit" id="signInButton">로그인 하기</button><br>
+            <button type="button" onclick="location.href='signup.html'">회원가입 하러 가기</button>
+        </ul>
     </form>
 
     <script type="module">
@@ -45,32 +40,9 @@
         const app = initializeApp(firebaseConfig);
         const analytics = getAnalytics(app);
 
-        console.log('hello world')
-        console.log(app)
-
-        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getAuth, signInWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
         
         const auth = getAuth();
-
-        document.getElementById('signUpButton').addEventListener('click',(event) => {
-            event.preventDefault()
-            const signUpEmail = document.getElementById('signUpEmail').value
-            const signUpPassword = document.getElementById('signUpPassword').value
-            
-            createUserWithEmailAndPassword(auth, signUpEmail, signUpPassword)
-            .then((userCredential) => {
-                console.log(userCredential)
-                // Signed in 
-                const user = userCredential.user;
-                // ...
-            })
-            .catch((error) => {
-                console.log('error')
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                // ..
-            });
-        })
 
         document.getElementById('signInButton').addEventListener('click',(event) => {
             event.preventDefault()
@@ -81,17 +53,19 @@
                     console.log(userCredential)
                     // Signed in 
                     const user = userCredential.user;
-                    // ...
+                    // 로그인 성공 알림
+                    window.alert('로그인 성공!')
                 })
                 .catch((error) => {
                     console.log('로그인 실패');
                     const errorCode = error.code;
                     const errorMessage = error.message;
                     console.error(errorCode, errorMessage);
+                    // 로그인 실패 알림
+                    window.alert('로그인 실패.')
                 });
 
         })
-
-      </script>
+    </script>
 </body>
 </html>
